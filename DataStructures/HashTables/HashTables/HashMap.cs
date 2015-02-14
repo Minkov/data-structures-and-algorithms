@@ -18,16 +18,16 @@ namespace HashTables
 
 		public int Capacity { private set; get; }
 
-		public int Count{ private set; get;}
+		public int Count{ private set; get; }
 
-		public V this[K key] {
-			get{
+		public V this [K key] {
+			get {
 				return this.Get (key);
 			}
-			set{
+			set {
 				if (this.Contains (key)) {
 					var index = this.Hash (key);
-					for (int i = 0; i < this.values[index].Count; i++) {
+					for (int i = 0; i < this.values [index].Count; i++) {
 						if (this.values [index] [i].Key.Equals (key)) {
 							this.values [index] [i] = new KeyValuePair<K, V> (key, value);
 							return;
@@ -39,7 +39,8 @@ namespace HashTables
 			}
 		}
 
-		public void Add(K key, V value){
+		public void Add (K key, V value)
+		{
 			if (this.Contains (key)) {
 				throw new ArgumentException ("The key already exists in the HashMap");
 			}
@@ -55,7 +56,8 @@ namespace HashTables
 			}
 		}
 
-		public V Get(K key){
+		public V Get (K key)
+		{
 			if (!this.Contains (key)) {
 				throw new ArgumentException ("The key does not exists in the HashMap");
 			}
@@ -69,7 +71,8 @@ namespace HashTables
 			return default(V);
 		}
 
-		public bool Contains(K key){
+		public bool Contains (K key)
+		{
 			int index = this.Hash (key);
 			if (this.values [index] == null) {
 				return false;
@@ -82,7 +85,8 @@ namespace HashTables
 			return false;
 		}
 
-		private int Hash(K key){
+		private int Hash (K key)
+		{
 			var hashCode = key.GetHashCode ();
 			hashCode %= this.Capacity;
 			if (hashCode < 0) {
@@ -91,7 +95,8 @@ namespace HashTables
 			return hashCode;
 		}
 
-		private void ExpandAndRearrangeItems(){
+		private void ExpandAndRearrangeItems ()
+		{
 			this.Count = 0;
 			this.Capacity *= 2;
 			var oldValues = (List<KeyValuePair<K,V>>[])this.values.Clone ();
@@ -110,7 +115,7 @@ namespace HashTables
 		public IEnumerator<KeyValuePair<K,V>> GetEnumerator ()
 		{
 			foreach (var itemsList in this.values) {
-				if(itemsList!=null){
+				if (itemsList != null) {
 					foreach (var item in itemsList) {
 						yield return item;
 					}
@@ -128,6 +133,6 @@ namespace HashTables
 		}
 
 		#endregion
-	}	
+	}
 }
 

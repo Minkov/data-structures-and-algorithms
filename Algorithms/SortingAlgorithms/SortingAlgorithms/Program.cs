@@ -8,48 +8,49 @@ namespace SortingAlgorithms
 {
     class Program
     {
+		static void Swap<T>(T[] items, int i, int j){
+			var temp = items [i];
+			items [i] = items [j];
+			items [j] = temp;
+		}
+
         #region QuickSort
 
-        static T[] QuickSort<T>(T[] numbers) where T : IComparable<T>
+		static T[] QuickSort<T>(T[] items) where T : IComparable<T>
         {
-            var sortedNumbers = numbers.Select(x => x).ToArray();
-            QuickSort(sortedNumbers, 0, sortedNumbers.Length - 1);
-            return sortedNumbers;
+			var toBeSortedItems = items.Select(x => x).ToArray();
+			QuickSort(toBeSortedItems, 0, toBeSortedItems.Length - 1);
+			return toBeSortedItems;
         }
 
-        static void QuickSort<T>(T[] numbers, int start, int end) where T : IComparable<T>
+        static void QuickSort<T>(T[] items, int start, int end) where T : IComparable<T>
         {
             if (start < end)
             {
-                int partition = Partition(numbers, start, end);
-                QuickSort(numbers, start, partition - 1);
-                QuickSort(numbers, partition + 1, end);
+				int partition = Partition(items, start, end);
+				QuickSort(items, start, partition - 1);
+				QuickSort(items, partition + 1, end);
             }
         }
 
-        private static int Partition<T>(T[] numbers, int start, int end) where T : IComparable<T>
+		private static int Partition<T>(T[] items, int start, int end) where T : IComparable<T>
         {
-            var pivot = start;
-            var value = numbers[pivot];
-            var temp = numbers[pivot];
-            numbers[pivot] = numbers[end];
-            numbers[end] = temp;
-            var index = start;
+			var pivot = start;
+			var value = items[pivot];
+		
+			//swap
+			Swap (items, pivot, end);
 
-            for (int i = start; i <= end; i++)
+            var index = start;
+			for (int i = start; i <= end; i++)
             {
-				//if (numbers[i] < value)
-                if (numbers[i].CompareTo(value) < 0)
+                if (items[i].CompareTo(value) < 0)
                 {
-                    temp = numbers[i];
-                    numbers[i] = numbers[index];
-                    numbers[index] = temp;
+					Swap (items, i, index);
                     ++index;
                 }
             }
-            temp = numbers[index];
-            numbers[index] = numbers[end];
-            numbers[end] = temp;
+			Swap (items, index, end);
             return index;
         }
 
@@ -178,7 +179,8 @@ namespace SortingAlgorithms
 
         static void Main()
         {
-            int count = 10000;
+            int count = 10;
+			DateTime start, end;
 
             int[] numbers = Enumerable.Range(1, count).Reverse().ToArray();
             //int[] numbers = new int[count];
@@ -188,40 +190,40 @@ namespace SortingAlgorithms
             //    numbers[i] = rand.Next();
             //}
 
-            var start = DateTime.Now;
-            Console.WriteLine("With built-in sort: ");
-            var sortedNumbersWithBuiltInSort = numbers.OrderBy(number => number);
-            //Console.WriteLine(string.Join(", ", numbers));
-            var end = DateTime.Now;
-            Console.WriteLine("Finished in {0} seconds", end - start);
+//            start = DateTime.Now;
+//            Console.WriteLine("With built-in sort: ");
+//            var sortedNumbersWithBuiltInSort = numbers.OrderBy(number => number);
+//            //Console.WriteLine(string.Join(", ", numbers));
+//            end = DateTime.Now;
+//            Console.WriteLine("Finished in {0} seconds", end - start);
 
             start = DateTime.Now;
             var sortedNumbersWithQuickSort = QuickSort(numbers);
             Console.WriteLine("With QuickSort: ");
-            //Console.WriteLine(string.Join(", ", sortedNumbersWithQuickSort));
+            Console.WriteLine(string.Join(", ", sortedNumbersWithQuickSort));
             end = DateTime.Now;
             Console.WriteLine("Finished in {0} seconds", end - start);
 
-            start = DateTime.Now;
-            var sortedNumbersWithMergeSort = MergeSort(numbers);
-            Console.WriteLine("With MergeSort: ");
-            //Console.WriteLine(string.Join(", ", sortedNumbersWithMergeSort));
-            end = DateTime.Now;
-            Console.WriteLine("Finished in {0} seconds", end - start);
-
-            start = DateTime.Now;
-            var sortedNumbersWithBubbleSort = BubbleSort(numbers);
-            Console.WriteLine("With BubbleSort: ");
-            //Console.WriteLine(string.Join(", ", sortedNumbersWithBubbleSort));
-            end = DateTime.Now;
-            Console.WriteLine("Finished in {0} seconds", end - start);
-
-            start = DateTime.Now;
-            var sortedNumbersWithSelectionSort = SelectionSort(numbers);
-            Console.WriteLine("With SelectionSort: ");
-            //Console.WriteLine(string.Join(", ", sortedNumbersWithSelectionSort));
-            end = DateTime.Now;
-            Console.WriteLine("Finished in {0} seconds", end - start);
+//            start = DateTime.Now;
+//            var sortedNumbersWithMergeSort = MergeSort(numbers);
+//            Console.WriteLine("With MergeSort: ");
+//            //Console.WriteLine(string.Join(", ", sortedNumbersWithMergeSort));
+//            end = DateTime.Now;
+//            Console.WriteLine("Finished in {0} seconds", end - start);
+//
+//            start = DateTime.Now;
+//            var sortedNumbersWithBubbleSort = BubbleSort(numbers);
+//            Console.WriteLine("With BubbleSort: ");
+//            //Console.WriteLine(string.Join(", ", sortedNumbersWithBubbleSort));
+//            end = DateTime.Now;
+//            Console.WriteLine("Finished in {0} seconds", end - start);
+//
+//            start = DateTime.Now;
+//            var sortedNumbersWithSelectionSort = SelectionSort(numbers);
+//            Console.WriteLine("With SelectionSort: ");
+//            //Console.WriteLine(string.Join(", ", sortedNumbersWithSelectionSort));
+//            end = DateTime.Now;
+//            Console.WriteLine("Finished in {0} seconds", end - start);
         }
     }
 }

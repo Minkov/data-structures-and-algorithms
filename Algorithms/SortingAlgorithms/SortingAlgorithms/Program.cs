@@ -56,27 +56,27 @@ namespace SortingAlgorithms
 
 		#region MergeSort
 
-		private static T[] MergeSort<T> (T[] numbers) where T : IComparable<T>
+		private static T[] MergeSort<T> (T[] items) where T : IComparable<T>
 		{
-			var sortedNumbers = numbers.Select (x => x).ToArray ();
+			var toBeSortedItems = items.Select (x => x).ToArray ();
 
-			T[] tempArray = new T[numbers.Length];
-			MergeSort (sortedNumbers, 0, sortedNumbers.Length - 1, tempArray);
+			T[] tempArray = new T[items.Length];
+			MergeSort (toBeSortedItems, 0, toBeSortedItems.Length - 1, tempArray);
 
-			return sortedNumbers;
+			return toBeSortedItems;
 		}
 
-		private static void MergeSort<T> (T[] numbers, int from, int to, T[] tempArray) where T : IComparable<T>
+		private static void MergeSort<T> (T[] items, int from, int to, T[] tempArray) where T : IComparable<T>
 		{
 			if (from < to) {
 				int middle = (from + to) / 2;
-				MergeSort (numbers, from, middle, tempArray);
-				MergeSort (numbers, middle + 1, to, tempArray);
-				Merge (numbers, from, to, tempArray);
+				MergeSort (items, from, middle, tempArray);
+				MergeSort (items, middle + 1, to, tempArray);
+				Merge (items, from, to, tempArray);
 			}
 		}
 
-		private static void Merge<T> (T[] numbers, int from, int to, T[] tempArray) where T : IComparable<T>
+		private static void Merge<T> (T[] items, int from, int to, T[] tempArray) where T : IComparable<T>
 		{
 			int middle = (from + to) / 2;
 
@@ -85,29 +85,29 @@ namespace SortingAlgorithms
 			int pos = from;
 
 			while ((left <= middle) && (right <= to)) {
-				if (numbers [left].CompareTo (numbers [right]) < 0) {
-					tempArray [pos] = numbers [left];
+				if (items [left].CompareTo (items [right]) < 0) {
+					tempArray [pos] = items [left];
 					++left;
 				} else {
-					tempArray [pos] = numbers [right];
+					tempArray [pos] = items [right];
 					++right;
 				}
 				++pos;
 			}
 
 			while (left <= middle) {
-				tempArray [pos] = numbers [left];
+				tempArray [pos] = items [left];
 				++pos;
 				++left;
 			}
 			while (right <= to) {
-				tempArray [pos] = numbers [right];
+				tempArray [pos] = items [right];
 				++pos;
 				++right;
 			}
 
 			for (int i = from; i <= to; i++) {
-				numbers [i] = tempArray [i];
+				items [i] = tempArray [i];
 			}
 		}
 
@@ -125,9 +125,7 @@ namespace SortingAlgorithms
 				for (int j = 0; j < sortedItems.Length - 1; j++) {
 					if (sortedItems [j].CompareTo (sortedItems [j + 1]) > 0) {
 						isSwapDone = true;
-						var temp = sortedItems [j];
-						sortedItems [j] = sortedItems [j + 1];
-						sortedItems [j + 1] = temp;
+						Swap(sortedItems, j, j +1);
 					}
 				}
 			} while (isSwapDone);
@@ -146,9 +144,7 @@ namespace SortingAlgorithms
 			for (int i = 0; i < sortedItems.Length; i++) {
 				for (int j = sortedItems.Length - 1; j > i; j--) {
 					if (sortedItems [i].CompareTo (sortedItems [j]) > 0) {
-						var temp = sortedItems [i];
-						sortedItems [i] = sortedItems [j];
-						sortedItems [j] = temp;
+						Swap (sortedItems, i, j);
 					}
 				}
 			}
@@ -165,48 +161,48 @@ namespace SortingAlgorithms
 			int count = 10;
 			DateTime start, end;
 
-			int[] numbers = Enumerable.Range (1, count).Reverse ().ToArray ();
-			//int[] numbers = new int[count];
+			int[] items = Enumerable.Range (1, count).Reverse ().ToArray ();
+			//int[] items = new int[count];
 
-			//for (int i = 0; i < numbers.Length; i++)
+			//for (int i = 0; i < items.Length; i++)
 			//{
-			//    numbers[i] = rand.Next();
+			//    items[i] = rand.Next();
 			//}
 
-//            start = DateTime.Now;
-//            Console.WriteLine("With built-in sort: ");
-//            var sortedNumbersWithBuiltInSort = numbers.OrderBy(number => number);
-//            //Console.WriteLine(string.Join(", ", numbers));
-//            end = DateTime.Now;
-//            Console.WriteLine("Finished in {0} seconds", end - start);
+            start = DateTime.Now;
+            Console.WriteLine("With built-in sort: ");
+            var sortedItemsWithBuiltInSort = items.OrderBy(number => number);
+            //Console.WriteLine(string.Join(", ", sortedItemsWithBuiltInSort));
+            end = DateTime.Now;
+            Console.WriteLine("Finished in {0} seconds", end - start);
 
 			start = DateTime.Now;
-			var sortedNumbersWithQuickSort = QuickSort (numbers);
+			var sortedItemsWithQuickSort = QuickSort (items);
 			Console.WriteLine ("With QuickSort: ");
-			Console.WriteLine (string.Join (", ", sortedNumbersWithQuickSort));
+			Console.WriteLine (string.Join (", ", sortedItemsWithQuickSort));
 			end = DateTime.Now;
 			Console.WriteLine ("Finished in {0} seconds", end - start);
 
-//            start = DateTime.Now;
-//            var sortedNumbersWithMergeSort = MergeSort(numbers);
-//            Console.WriteLine("With MergeSort: ");
-//            //Console.WriteLine(string.Join(", ", sortedNumbersWithMergeSort));
-//            end = DateTime.Now;
-//            Console.WriteLine("Finished in {0} seconds", end - start);
-//
-//            start = DateTime.Now;
-//            var sortedNumbersWithBubbleSort = BubbleSort(numbers);
-//            Console.WriteLine("With BubbleSort: ");
-//            //Console.WriteLine(string.Join(", ", sortedNumbersWithBubbleSort));
-//            end = DateTime.Now;
-//            Console.WriteLine("Finished in {0} seconds", end - start);
-//
-//            start = DateTime.Now;
-//            var sortedNumbersWithSelectionSort = SelectionSort(numbers);
-//            Console.WriteLine("With SelectionSort: ");
-//            //Console.WriteLine(string.Join(", ", sortedNumbersWithSelectionSort));
-//            end = DateTime.Now;
-//            Console.WriteLine("Finished in {0} seconds", end - start);
+            start = DateTime.Now;
+            var sortedItemsWithMergeSort = MergeSort(items);
+            Console.WriteLine("With MergeSort: ");
+			//Console.WriteLine(string.Join(", ", sortedItemsWithMergeSort));
+            end = DateTime.Now;
+            Console.WriteLine("Finished in {0} seconds", end - start);
+
+            start = DateTime.Now;
+            var sortedItemsWithBubbleSort = BubbleSort(items);
+            Console.WriteLine("With BubbleSort: ");
+			//Console.WriteLine(string.Join(", ", sortedItemsWithBubbleSort));
+            end = DateTime.Now;
+            Console.WriteLine("Finished in {0} seconds", end - start);
+
+            start = DateTime.Now;
+            var sortedItemsWithSelectionSort = SelectionSort(items);
+            Console.WriteLine("With SelectionSort: ");
+			//Console.WriteLine(string.Join(", ", sortedItemsWithSelectionSort));
+            end = DateTime.Now;
+            Console.WriteLine("Finished in {0} seconds", end - start);
 		}
 	}
 }

@@ -24,7 +24,10 @@ namespace MaxIncreasingSequence
 			}
 
 			//find the longest non-decreasing sequence
+
 			int maxSequenceLength = sequencesCount [0];
+
+			//marks the end of the longest non-decreasing sequence
 			int pathStart = 0;
 
 			for (int i = 0; i < sequencesCount.Length; i++) {
@@ -33,8 +36,7 @@ namespace MaxIncreasingSequence
 					pathStart = i;
 				}
 			}
-			Console.WriteLine (maxSequenceLength);
-			Console.WriteLine (pathStart);
+
 
 			//go throught the path to find the items of the best sequence
 			var index = pathStart;

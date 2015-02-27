@@ -77,10 +77,9 @@ namespace Combinatorics
         #endregion
 
         #region Permutations
-
         public static IEnumerable<T[]> GetPermutations<T>(this IEnumerable<T> items)
         {
-            ISet<T[]> permutations = new HashSet<T[]>(new PermutationsEquliatyComparer<T>());
+			List<T[]> permutations = new List<T[]>(new PermutationsEquliatyComparer<T>());
 
             Permute(items.ToArray(), 0, permutations);
             return permutations.ToArray();
@@ -127,14 +126,44 @@ namespace Combinatorics
             }
         }
         #endregion
-    }
+	}
 
     class Program
     {
+		static void Swap<T>(T[] items, int i, int j)
+		{
+			T temp = items[i];
+			items[i] = items[j];
+			items[j] = temp;
+		}
+
+		public static void GetPermutations(int[] items, int index, List<int[]> permutations)
+		{
+			if (index == items.Length) {
+				permutations.Add ((int[])items.Clone());
+				return;
+			}
+			for (int i = index; i < items.Length; i++) {
+				Swap (items, i, index);
+				GetPermutations (items, index+1, permutations);
+				Swap (items, index, i);
+			}
+		}
+		public static int[][]  GetPermutations(int[] items)
+		{
+			List<int[]> permutations = new List<int[]> ();
+
+			GetPermutations (items, 0, permutations);
+
+			return permutations.ToArray ();
+		}
+
         static void Main()
         {
             Console.WriteLine("Variations:");
-            (new int[] { 1, 2, 3 }).GetVariations(3)
+			var numbers = new int[]{ 1, 2, 3 };
+			CombinatoricExtensions.GetPermutations (numbers);
+            numbers.GetVariations(3)
                                       .ForEach(variation => Console.WriteLine(string.Join(", ", variation)));
             Console.WriteLine(new string('*', 50));
 

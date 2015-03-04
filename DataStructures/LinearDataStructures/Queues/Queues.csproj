@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IQueue.cs" />
     <Compile Include="LinkedQueue.cs" />
     <Compile Include="QueuesTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

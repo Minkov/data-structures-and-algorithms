@@ -7,7 +7,7 @@ using Lists;
 
 namespace Queues
 {
-    public class LinkedQueue<T>
+    public class LinkedQueue<T> : IQueue<T>
     {
         private DoubleLinkedList<T> list;
 

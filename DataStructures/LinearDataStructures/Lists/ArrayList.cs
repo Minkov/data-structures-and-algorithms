@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Lists
 {
-	public class ArrayList<T>: IEnumerable<T>
+	public class ArrayList<T>: IEnumerable<T>, Lists.IList<T>
 	{
 		private const int DefaultCapacity = 4;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Lists
 {
-    public class DoubleLinkedList<T> : IEnumerable<T>
+    public class DoubleLinkedList<T> : IEnumerable<T>, IList<T>
     {
         public class DoubleLinkedListNode<T>
         {
@@ -25,8 +25,7 @@ namespace Lists
 
         public DoubleLinkedListNode<T> Tail { get; private set; }
 
-        public DoubleLinkedList()
-            : this(new T[0])
+        public DoubleLinkedList() : this(new T[0])
         {
         }
 
@@ -113,6 +112,32 @@ namespace Lists
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+
+        public void Add(T value)
+        {
+            this.AddLast(value);
+        }
+
+        public T this[int index]
+        {
+            get
+            {
+                if (this.Count <= index)
+                {
+                    throw new IndexOutOfRangeException("Index must be a positive value, lesser than count");
+                }
+                var current = this.Head;
+                for (int i = 0; i < index; i++)
+                {
+                    current = current.Next;
+                }
+                return current.Value;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

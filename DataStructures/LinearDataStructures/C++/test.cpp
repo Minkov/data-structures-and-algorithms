@@ -1,6 +1,7 @@
 #include <iostream>
 #include "linked_list.cpp"
 #include "queue.cpp"
+#include "stack.cpp"
 
 void testList() {
     data_structures::LinkedList<int> list;
@@ -26,8 +27,24 @@ void testQueue() {
     }
 }
 
+void testStack() {
+    data_structures::Stack<int> stack;
+    int count = 15;
+    for (int i = 0; i < count; ++i)
+    {
+        stack.push(i + 1);
+    }
+
+    while (!stack.isEmpty()) {
+        int value = stack.peek();
+        stack.pop();
+        std::cout << value << std::endl;
+    }
+}
 
 int main() {
+    std::cout << "Stack:" << std::endl;
+    testStack();
 
     std::cout << "Queue:" << std::endl;
     testQueue();

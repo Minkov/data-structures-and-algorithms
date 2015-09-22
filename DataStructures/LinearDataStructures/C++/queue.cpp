@@ -1,5 +1,3 @@
-#include<iostream>
-
 namespace data_structures {
 #include "linked_list.cpp"
 
@@ -51,7 +49,7 @@ unsigned int Queue<T>::getSize() {
 
 template<class T>
 bool Queue<T>::isEmpty() {
-    return (this->getSize()) == 0;
+    return this->getSize() == 0;
 }
 
 }

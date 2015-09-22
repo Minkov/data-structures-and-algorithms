@@ -25,7 +25,7 @@ public:
     void addTail(T value);
 
     void removeHead();
-    // void removeTail();
+    void removeTail();
 
 private:
     unsigned int size;
@@ -80,6 +80,17 @@ void LinkedList<T>::removeHead() {
     }
 
     this->head = this->head->next;
+    --this->size;
+}
+
+template <class T>
+void LinkedList<T>::removeTail() {
+
+    if (this->tail == nullptr) {
+        return;
+    }
+
+    this->tail = this->tail->prev;
     --this->size;
 }
 

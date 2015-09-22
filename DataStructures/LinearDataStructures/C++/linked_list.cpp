@@ -1,4 +1,5 @@
 namespace data_structures {
+#include<iostream>
 
 template <class T>
 struct LinkedListNode {
@@ -23,6 +24,8 @@ public:
     void addHead(T value);
     void addTail(T value);
 
+    void removeHead();
+    // void removeTail();
 
 private:
     unsigned int size;
@@ -68,6 +71,18 @@ void LinkedList<T>::addTail(T value) {
     }
     ++this->size;
 }
+
+template <class T>
+void LinkedList<T>::removeHead() {
+
+    if (this->head == nullptr) {
+        return;
+    }
+
+    this->head = this->head->next;
+    --this->size;
+}
+
 
 template <class T>
 T LinkedList<T>::getHead() {

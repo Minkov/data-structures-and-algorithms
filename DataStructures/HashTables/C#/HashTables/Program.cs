@@ -1,38 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HashTables
+﻿namespace HashTables
 {
-	class Program
-	{
-		static void Main (string[] args)
-		{
+    using System;
+    using System.Collections.Generic;
 
-			DateTime start, end;
-			int count = 10000000;
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            DateTime start, end;
+            int count = 10000;
 
-			start = DateTime.Now;
-			HashMap<string, int> map = new HashMap<string, int> ();
+            start = DateTime.Now;
+            HashMap<string, int> map = new HashMap<string, int>();
 
-			for (int i = 0; i < count; i++) {
-				map [i + ""] = i;
-			}
+            for (int i = 0; i < count; i++)
+            {
+                map[i.ToString()] = i;
+            }
 
-			end = DateTime.Now;
-			Console.WriteLine ("Finished in {0} seconds", end-start);
+            end = DateTime.Now;
+            Console.WriteLine("Finished in {0} seconds", end - start);
 
-			start = DateTime.Now;
-			Dictionary<string, int> dict = new Dictionary<string, int> ();
+            start = DateTime.Now;
+            Dictionary<string, int> dict = new Dictionary<string, int>();
 
-			for (int i = 0; i < count; i++) {
-				dict [i + ""] = i;
-			}
+            for (int i = 0; i < count; i++)
+            {
+                dict[i.ToString()] = i;
+            }
 
-			end = DateTime.Now;
-			Console.WriteLine ("Finished in {0} seconds", end-start);
-		}
-	}
+            end = DateTime.Now;
+            Console.WriteLine("Finished in {0} seconds", end - start);
+        }
+    }
 }

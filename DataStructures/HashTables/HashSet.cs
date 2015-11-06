@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HashTables
+﻿namespace HashTables
 {
-    public class HashSet<T> : IHashSet<T>, ICloneable
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+
+    public class HashSet<T> : IHashSet<T>, IEnumerable<T>, ICloneable
     {
-        private int InitialCapacity = 16;
+        private const int InitialCapacity = 16;
+        private const float ResizeCoeff = 0.75f;
+
         private List<T>[] values;
-        private int ResizeCoeff;
 
         public HashSet()
         {
@@ -26,7 +24,7 @@ namespace HashTables
 
         public void Add(T value)
         {
-            var index = this.Hash(value);
+            var index = this.GetIndexOf(value);
             if (this.values[index] == null)
             {
                 this.values[index] = new List<T>();
@@ -43,14 +41,14 @@ namespace HashTables
 
         public bool Contains(T value)
         {
-            var index = this.Hash(value);
+            var index = this.GetIndexOf(value);
             return this.values[index] != null &&
                     this.values[index].Contains(value);
         }
 
         public void Remove(T value)
         {
-            var index = this.Hash(value);
+            var index = this.GetIndexOf(value);
 
             if (this.values[index] == null ||
                 !this.values[index].Remove(value))
@@ -63,9 +61,11 @@ namespace HashTables
         {
             foreach (var valuesList in this.values)
             {
-                if(valuesList == null) {
+                if (valuesList == null)
+                {
                     continue;
                 }
+
                 foreach (var value in valuesList)
                 {
                     yield return value;
@@ -78,6 +78,17 @@ namespace HashTables
             return this.GetEnumerator();
         }
 
+        public object Clone()
+        {
+            var clone = new HashSet<T>();
+            foreach (var value in this)
+            {
+                clone.Add(value);
+            }
+
+            return clone;
+        }
+
         private void ResizeAndReadd()
         {
             this.Capacity *= 2;
@@ -85,9 +96,16 @@ namespace HashTables
             this.values = new List<T>[this.Capacity];
         }
 
-        public object Clone()
+        private int GetIndexOf(T value)
         {
-            throw new NotImplementedException();
+            var hashCode = value.GetHashCode();
+            if (hashCode < 0)
+            {
+                hashCode *= -1;
+            }
+
+            var index = hashCode % this.Capacity;
+            return index;
         }
     }
 }

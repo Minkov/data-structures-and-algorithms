@@ -3,25 +3,25 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
     using Extensions;
 
-    public class HashMap<TK, TV> : IEnumerable<KeyValuePair<TK, TV>>
+    public class HashMap<TK, TV> : IHashMap<TK, TV>, IEnumerable<KeyValuePair<TK, TV>>
     {
         private const int InitialCapacity = 16;
+
         private List<KeyValuePair<TK, TV>>[] values;
 
         public HashMap()
         {
-            Capacity = InitialCapacity;
-            Count = 0;
-            values = new List<KeyValuePair<TK, TV>>[Capacity];
+            this.Capacity = InitialCapacity;
+            this.Count = 0;
+            this.values = new List<KeyValuePair<TK, TV>>[this.Capacity];
         }
 
         public HashMap(IEnumerable<KeyValuePair<TK, TV>> values)
             : this()
         {
-            values.ForEach(Add);
+            values.ForEach(this.Add);
         }
 
         public int Capacity { get; private set; }
@@ -30,41 +30,60 @@
 
         public TV this[TK key]
         {
-            get { return Get(key); }
+            get
+            {
+                return this.Get(key);
+            }
 
             set
             {
-                if (Contains(key))
+                if (this.ContainsKey(key))
                 {
-                    Set(key, value);
+                    this.Set(key, value);
                 }
                 else
                 {
-                    Add(key, value);
+                    this.Add(key, value);
                 }
             }
         }
 
         public IEnumerator<KeyValuePair<TK, TV>> GetEnumerator()
         {
-            return (values.Where(itemsList => itemsList != null)
-                .SelectMany(itemsList => itemsList)).GetEnumerator();
+            foreach (var pairItemsList in this.values)
+            {
+                if (pairItemsList == null)
+                {
+                    continue;
+                }
+
+                foreach (var pair in pairItemsList)
+                {
+                    yield return pair;
+                }
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return this.GetEnumerator();
         }
 
         public void Set(TK key, TV value)
         {
-            var index = Hash(key);
-            for (var i = 0; i < values[index].Count; i++)
+            if (!this.ContainsKey(key))
             {
-                if (values[index][i].Key.Equals(key))
+                throw new InvalidOperationException("Missing items cannot be set");
+            }
+
+            var index = this.GetIndexOf(key);
+            var pairItemsList = this.values[index];
+
+            for (var i = 0; i < pairItemsList.Count; i++)
+            {
+                if (pairItemsList[i].Key.Equals(key))
                 {
-                    values[index][i] =
-                        new KeyValuePair<TK, TV>(key, value);
+                    pairItemsList[i] = new KeyValuePair<TK, TV>(key, value);
                     return;
                 }
             }
@@ -72,41 +91,41 @@
 
         public void Add(KeyValuePair<TK, TV> pair)
         {
-            Add(pair.Key, pair.Value);
+            this.Add(pair.Key, pair.Value);
         }
 
         public void Add(TK key, TV value)
         {
-            if (Contains(key))
+            if (this.ContainsKey(key))
             {
                 throw new ArgumentException("The key already exists in the HashMap");
             }
 
-            var index = Hash(key);
-            if (values[index] == null)
+            var index = this.GetIndexOf(key);
+            if (this.values[index] == null)
             {
-                values[index] = new List<KeyValuePair<TK, TV>>();
+                this.values[index] = new List<KeyValuePair<TK, TV>>();
             }
 
-            values[index].Add(new KeyValuePair<TK, TV>(key, value));
-            ++Count;
+            this.values[index].Add(new KeyValuePair<TK, TV>(key, value));
+            ++this.Count;
 
-            if (Count >= 0.75*Capacity)
+            if (this.Count >= 0.75 * this.Capacity)
             {
-                ExpandAndRearrangeItems();
+                this.ExpandAndRearrangeItems();
             }
         }
 
         public TV Get(TK key)
         {
-            if (!Contains(key))
+            if (!this.ContainsKey(key))
             {
                 throw new ArgumentException("The key does not exists in the HashMap");
             }
 
-            var index = Hash(key);
-            var possibleValues = values[index];
-            foreach (var item in possibleValues)
+            var index = this.GetIndexOf(key);
+            var pairItemsList = this.values[index];
+            foreach (var item in pairItemsList)
             {
                 if (item.Key.Equals(key))
                 {
@@ -117,15 +136,15 @@
             return default(TV);
         }
 
-        public bool Contains(TK key)
+        public bool ContainsKey(TK key)
         {
-            var index = Hash(key);
-            if (values[index] == null)
+            var index = this.GetIndexOf(key);
+            if (this.values[index] == null)
             {
                 return false;
             }
 
-            foreach (var item in values[index])
+            foreach (var item in this.values[index])
             {
                 if (item.Key.Equals(key))
                 {
@@ -136,10 +155,11 @@
             return false;
         }
 
-        private int Hash(TK key)
+        private int GetIndexOf(TK key)
         {
             var hashCode = key.GetHashCode();
-            hashCode %= Capacity;
+            hashCode %= this.Capacity;
+
             if (hashCode < 0)
             {
                 hashCode *= -1;
@@ -150,10 +170,11 @@
 
         private void ExpandAndRearrangeItems()
         {
-            Count = 0;
-            Capacity *= 2;
-            var oldValues = (List<KeyValuePair<TK, TV>>[]) values.Clone();
-            values = new List<KeyValuePair<TK, TV>>[Capacity];
+            this.Count = 0;
+            this.Capacity *= 2;
+
+            var oldValues = (List<KeyValuePair<TK, TV>>[])this.values.Clone();
+            this.values = new List<KeyValuePair<TK, TV>>[this.Capacity];
 
             foreach (var itemsList in oldValues)
             {
@@ -164,7 +185,7 @@
 
                 foreach (var item in itemsList)
                 {
-                    Add(item.Key, item.Value);
+                    this.Add(item.Key, item.Value);
                 }
             }
         }

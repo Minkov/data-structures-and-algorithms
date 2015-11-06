@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinearDataStructures", "LinearDataStructures\LinearDataStructures.csproj", "{9C3B6802-7F4F-40DA-B339-81358E1A2E3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "Extensions\Extensions.csproj", "{90FFD4F0-FEB3-441F-9570-A19484832D1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinearDataStructures.Test", "LinearDataStructures.Test\LinearDataStructures.Test.csproj", "{6E54D9DF-5242-4804-A055-FD012A0DC8CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashTables", "HashTables\HashTables.csproj", "{6529AEF4-ABDF-41F4-AA51-1D5ABB8C0F52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trees", "Trees\Trees.csproj", "{72BB8ED5-8BAC-4E86-87F9-E044D9D9A631}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heap", "Heap\Heap.csproj", "{A5652534-770C-44FA-958B-5AAEF24ACCB1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9C3B6802-7F4F-40DA-B339-81358E1A2E3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C3B6802-7F4F-40DA-B339-81358E1A2E3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C3B6802-7F4F-40DA-B339-81358E1A2E3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C3B6802-7F4F-40DA-B339-81358E1A2E3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90FFD4F0-FEB3-441F-9570-A19484832D1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90FFD4F0-FEB3-441F-9570-A19484832D1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90FFD4F0-FEB3-441F-9570-A19484832D1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90FFD4F0-FEB3-441F-9570-A19484832D1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E54D9DF-5242-4804-A055-FD012A0DC8CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E54D9DF-5242-4804-A055-FD012A0DC8CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E54D9DF-5242-4804-A055-FD012A0DC8CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E54D9DF-5242-4804-A055-FD012A0DC8CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6529AEF4-ABDF-41F4-AA51-1D5ABB8C0F52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6529AEF4-ABDF-41F4-AA51-1D5ABB8C0F52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6529AEF4-ABDF-41F4-AA51-1D5ABB8C0F52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6529AEF4-ABDF-41F4-AA51-1D5ABB8C0F52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72BB8ED5-8BAC-4E86-87F9-E044D9D9A631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72BB8ED5-8BAC-4E86-87F9-E044D9D9A631}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72BB8ED5-8BAC-4E86-87F9-E044D9D9A631}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72BB8ED5-8BAC-4E86-87F9-E044D9D9A631}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5652534-770C-44FA-958B-5AAEF24ACCB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5652534-770C-44FA-958B-5AAEF24ACCB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5652534-770C-44FA-958B-5AAEF24ACCB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5652534-770C-44FA-958B-5AAEF24ACCB1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

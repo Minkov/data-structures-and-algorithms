@@ -24,7 +24,7 @@
             values.ForEach(this.Add);
         }
 
-        public int Capacity { get; private set; }
+        private int Capacity { get; set; }
 
         public int Count { get; private set; }
 
@@ -44,47 +44,6 @@
                 else
                 {
                     this.Add(key, value);
-                }
-            }
-        }
-
-        public IEnumerator<KeyValuePair<TK, TV>> GetEnumerator()
-        {
-            foreach (var pairItemsList in this.values)
-            {
-                if (pairItemsList == null)
-                {
-                    continue;
-                }
-
-                foreach (var pair in pairItemsList)
-                {
-                    yield return pair;
-                }
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-
-        public void Set(TK key, TV value)
-        {
-            if (!this.ContainsKey(key))
-            {
-                throw new InvalidOperationException("Missing items cannot be set");
-            }
-
-            var index = this.GetIndexOf(key);
-            var pairItemsList = this.values[index];
-
-            for (var i = 0; i < pairItemsList.Count; i++)
-            {
-                if (pairItemsList[i].Key.Equals(key))
-                {
-                    pairItemsList[i] = new KeyValuePair<TK, TV>(key, value);
-                    return;
                 }
             }
         }
@@ -113,6 +72,26 @@
             if (this.Count >= 0.75 * this.Capacity)
             {
                 this.ExpandAndRearrangeItems();
+            }
+        }
+
+        public void Set(TK key, TV value)
+        {
+            if (!this.ContainsKey(key))
+            {
+                throw new InvalidOperationException("Missing items cannot be set");
+            }
+
+            var index = this.GetIndexOf(key);
+            var pairItemsList = this.values[index];
+
+            for (var i = 0; i < pairItemsList.Count; i++)
+            {
+                if (pairItemsList[i].Key.Equals(key))
+                {
+                    pairItemsList[i] = new KeyValuePair<TK, TV>(key, value);
+                    return;
+                }
             }
         }
 
@@ -153,6 +132,27 @@
             }
 
             return false;
+        }
+
+        public IEnumerator<KeyValuePair<TK, TV>> GetEnumerator()
+        {
+            foreach (var pairItemsList in this.values)
+            {
+                if (pairItemsList == null)
+                {
+                    continue;
+                }
+
+                foreach (var pair in pairItemsList)
+                {
+                    yield return pair;
+                }
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
 
         private int GetIndexOf(TK key)

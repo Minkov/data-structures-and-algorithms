@@ -7,21 +7,9 @@ namespace Heap
     public class Heap<T> where T : IComparable<T>
     {
         private List<T> values;
-        private IComparer<T> comparer;
 
         public Heap()
-            : this(Comparer<T>.Default)
         {
-        }
-
-        public Heap(Func<T, T, int> predicate)
-            : this(new DelegateComparer<T>(predicate))
-        {
-        }
-
-        public Heap(IComparer<T> comparer)
-        {
-            this.comparer = comparer;
             this.values = new List<T>();
         }
 
@@ -48,7 +36,7 @@ namespace Heap
             while (index > 0)
             {
                 var parentIndex = (index - 1) / 2;
-                if (this.comparer.Compare(this.values[parentIndex], this.values[index]) <= 0)
+                if (this.values[parentIndex].CompareTo(this.values[index]) <= 0)
                 {
                     break;
                 }
@@ -77,7 +65,7 @@ namespace Heap
                     {
                         continue;
                     }
-                    if (this.comparer.Compare(this.values[newIndex], this.values[nextIndex]) > 0)
+                    if (this.values[newIndex].CompareTo(this.values[nextIndex]) > 0)
                     {
                         newIndex = nextIndex;
                         hasFoundSmaller = true;

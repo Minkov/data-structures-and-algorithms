@@ -45,11 +45,68 @@
   <ItemGroup>
     <Compile Include="DelegateComparer.cs" />
     <Compile Include="Heap.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="HeapTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="output\output-00.txt" />
+    <Content Include="output\output-01.txt" />
+    <Content Include="output\output-02.txt" />
+    <Content Include="output\output-03.txt" />
+    <Content Include="output\output-04.txt" />
+    <Content Include="output\output-05.txt" />
+    <Content Include="output\output-06.txt" />
+    <Content Include="output\output-07.txt" />
+    <Content Include="output\output-08.txt" />
+    <Content Include="output\output-09.txt" />
+    <Content Include="output\output-10.txt" />
+    <Content Include="output\output-11.txt" />
+    <Content Include="output\output-12.txt" />
+    <Content Include="output\output-13.txt" />
+    <Content Include="output\output-14.txt" />
+    <Content Include="output\output-15.txt" />
+    <Content Include="output\output-16.txt" />
+    <Content Include="output\output-17.txt" />
+    <Content Include="output\output-18.txt" />
+    <Content Include="output\output-19.txt" />
+    <Content Include="output\output-20.txt" />
+    <Content Include="output\output-21.txt" />
+    <Content Include="output\output-22.txt" />
+    <Content Include="output\output-23.txt" />
+    <Content Include="output\output-24.txt" />
+    <Content Include="output\output-25.txt" />
+    <Content Include="output\output-26.txt" />
+    <Content Include="output\output-27.txt" />
+    <Content Include="output\output-28.txt" />
+    <Content Include="output\output-29.txt" />
+    <Content Include="output\output-30.txt" />
+    <Content Include="output\output-31.txt" />
+    <Content Include="output\output-32.txt" />
+    <Content Include="output\output-33.txt" />
+    <Content Include="output\output-34.txt" />
+    <Content Include="output\output-35.txt" />
+    <Content Include="output\output-36.txt" />
+    <Content Include="output\output-37.txt" />
+    <Content Include="output\output-38.txt" />
+    <Content Include="output\output-39.txt" />
+    <Content Include="output\output-40.txt" />
+    <Content Include="output\output-41.txt" />
+    <Content Include="output\output-42.txt" />
+    <Content Include="output\output-43.txt" />
+    <Content Include="output\output-44.txt" />
+    <Content Include="output\output-45.txt" />
+    <Content Include="output\output-46.txt" />
+    <Content Include="output\output-47.txt" />
+    <Content Include="output\output-48.txt" />
+    <Content Include="output\output-49.txt" />
+    <Content Include="output\output-50.txt" />
+    <Content Include="output\output-51.txt" />
+    <Content Include="output\output-52.txt" />
+    <Content Include="output\output-53.txt" />
+    <Content Include="output\output-54.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,18 +1,14 @@
-from .heapsort import sort
+from sorts.mergesort import sort
+# from sorts.heapsort import sort
+import time
 
-tests = [
-    [1, 2, 3, 4],
-    [4, 3, 2, 1],
-    [],
-    [1],
-    [2, 2, 2, 2],
-    [2, 2, 2],
-    [3, 8, 9, 3],
-    [1, 2, 1, 3, 4, 5, 6, 1],
-]
+n = 1 << 20 
 
+arr = list(range(n))[::-1]
 
-for test in tests:
-    initial = test.__str__()
-    result = sort(test).__str__()
-    print('%s -> %s' % (initial, result))
+start = time.time()
+
+sort(arr)
+
+end = time.time()
+print(end - start)

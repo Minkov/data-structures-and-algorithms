@@ -4,7 +4,7 @@ const defaultCompareFunc = (x, y) => {
 
 const defaultEqualsFunc = (x, y) => {
     return x === y;
-}
+};
 
 class BinarySearchTree {
     constructor(compareFunc, equalsFunc) {
@@ -22,7 +22,7 @@ class BinarySearchTree {
     }
 
     add(value) {
-        let newNode = {
+        const newNode = {
             value,
             left: null,
             right: null,
@@ -109,19 +109,18 @@ class BinarySearchTree {
         }
         if (this.compareFunc(value, node.value)) {
             return this._containsTraverse(node.left, value);
-        } else {
-            return this._containsTraverse(node.right, value);
         }
+
+        return this._containsTraverse(node.right, value);
     }
 
     _getHeight(node) {
         if (!node) return 0;
-        let leftHeight = this._getHeight(node.left);
-        let rightHeight = this._getHeight(node.right);
+        const leftHeight = this._getHeight(node.left);
+        const rightHeight = this._getHeight(node.right);
 
         return Math.max(leftHeight, rightHeight) + 1;
     }
-
 }
 
 module.exports = BinarySearchTree;

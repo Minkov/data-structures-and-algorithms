@@ -1,3 +1,5 @@
+/* globals Symbol */
+
 class Queue {
     constructor() {
         this.head = null;
@@ -38,6 +40,10 @@ class Queue {
 
         this.head = this.head.next;
 
+        if (this.head === null) {
+            this.tail = null;
+        }
+
         this.count -= 1;
 
         return value;
@@ -53,6 +59,14 @@ class Queue {
 
     isEmpty() {
         return this.count === 0;
+    }
+
+    *[Symbol.iterator]() {
+        let node = this.head;
+        while (node !== null) {
+            yield node.value;
+            node = node.next;
+        }
     }
 }
 
